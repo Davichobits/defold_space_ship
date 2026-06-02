@@ -22,3 +22,7 @@ scale_mode = stretch
 [project]
 title = Space Shooter
 
+[graphics]
+default_texture_min_filter = linear
+default_texture_mag_filter = nearest
+
