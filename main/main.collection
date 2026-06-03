@@ -14,10 +14,6 @@ embedded_instances {
   "\"\n"
   "}\n"
   ""
-  position {
-    x: 320.0
-    y: 240.0
-  }
 }
 embedded_instances {
   id: "player"
@@ -41,4 +37,8 @@ embedded_instances {
   "  }\n"
   "}\n"
   ""
+  position {
+    x: 40.0
+    y: 40.0
+  }
 }

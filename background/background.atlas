@@ -1,4 +1,6 @@
 images {
   image: "/assets/Background/1.png"
+  pivot_x: 0.0
+  pivot_y: 1.0
 }
 extrude_borders: 2
