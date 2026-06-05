@@ -1,58 +1,18 @@
-images {
-  image: "/assets/Item/Ball.png"
-}
-images {
-  image: "/assets/Item/Bomb.png"
-}
-images {
-  image: "/assets/Item/Bubble.png"
-}
-images {
-  image: "/assets/Item/Crate1.png"
-}
-images {
-  image: "/assets/Item/Crate2.png"
-}
-images {
-  image: "/assets/Item/Gem1.png"
-}
-images {
-  image: "/assets/Item/Gem2.png"
-}
-images {
-  image: "/assets/Item/Gem3.png"
-}
-images {
-  image: "/assets/Item/Gem4.png"
-}
-images {
-  image: "/assets/Item/PowerUp1.png"
-}
-images {
-  image: "/assets/Item/PowerUp2.png"
-}
-images {
-  image: "/assets/Item/PowerUp3.png"
-}
-images {
-  image: "/assets/Item/PowerUp4.png"
-}
-images {
-  image: "/assets/Item/PowerUp5.png"
-}
-images {
-  image: "/assets/Item/PowerUp6.png"
-}
-images {
-  image: "/assets/Item/PowerUp7.png"
-}
-images {
-  image: "/assets/Item/Rocket.png"
-}
-images {
-  image: "/assets/Item/Rocket2.png"
-}
-images {
-  image: "/assets/Item/shieldItem.png"
+animations {
+  id: "star"
+  images {
+    image: "/assets/Item/Gem5.1.png"
+  }
+  images {
+    image: "/assets/Item/Gem5.2.png"
+  }
+  images {
+    image: "/assets/Item/Gem5.3.png"
+  }
+  images {
+    image: "/assets/Item/Gem5.4.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 6
 }
 extrude_borders: 2
