@@ -1,4 +1,5 @@
 local frequency = 0.5
+local gem1_prob = 0.2
 local min_x = 40
 local max_x = 560
 
@@ -18,6 +19,10 @@ function update(self, dt)
 		position.y = 500
 		print("x: " .. position.x .. "y: " .. position.y )
 		local component = "#star_factory"
+
+		if math.random() < gem1_prob then
+			component = "#gem1_factory"
+		end
 		factory.create(component, position)
 	end
 end

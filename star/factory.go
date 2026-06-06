@@ -8,3 +8,9 @@ embedded_components {
   data: "prototype: \"/star/star.go\"\n"
   ""
 }
+embedded_components {
+  id: "gem1_factory"
+  type: "factory"
+  data: "prototype: \"/gem1/gem1.go\"\n"
+  ""
+}

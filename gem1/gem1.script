@@ -2,8 +2,6 @@ local speed = -100
 
 function update(self, dt)
 	local position = go.get_position()
-
 	position.y = position.y + speed * dt
-
 	go.set_position(position)
 end
