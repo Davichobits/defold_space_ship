@@ -17,7 +17,6 @@ function update(self, dt)
 		local position = go.get_position()
 		position.x = vmath.lerp(math.random(), min_x, max_x)
 		position.y = 500
-		print("x: " .. position.x .. "y: " .. position.y )
 		local component = "#star_factory"
 
 		if math.random() < gem1_prob then

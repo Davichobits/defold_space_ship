@@ -1,4 +1,5 @@
 local speed = -100
+local score = 1000
 
 function update(self, dt)
 	local position = go.get_position()
@@ -6,4 +7,11 @@ function update(self, dt)
 	position.y = position.y + speed * dt
 
 	go.set_position(position)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("collision_response") then
+		msg.post("main#main", "add_score", {amount = score})
+		go.delete()
+	end
 end
