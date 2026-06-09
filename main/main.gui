@@ -1,12 +1,12 @@
 script: "/main/main.gui_script"
 fonts {
   name: "score"
-  font: "/fonts/score.font"
+  font: "/fonts/score_bmp.font"
 }
 nodes {
   position {
-    x: 610.0
-    y: 454.0
+    x: 632.0
+    y: 428.0
     z: 0.5
   }
   size {
@@ -18,6 +18,7 @@ nodes {
   ""
   font: "score"
   id: "score"
+  pivot: PIVOT_E
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"
