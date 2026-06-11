@@ -10,6 +10,23 @@ instances {
   id: "main"
   prototype: "/main/main.go"
 }
+instances {
+  id: "enemy1"
+  prototype: "/enemies/enemy1/enemy1.go"
+  position {
+    x: 324.0
+    y: 536.0
+  }
+}
+instances {
+  id: "player"
+  prototype: "/player/player.go"
+  position {
+    x: 40.0
+    y: 40.0
+    z: 0.01
+  }
+}
 scale_along_z: 0
 embedded_instances {
   id: "background"
@@ -25,57 +42,4 @@ embedded_instances {
   "\"\n"
   "}\n"
   ""
-}
-embedded_instances {
-  id: "player"
-  data: "components {\n"
-  "  id: \"player\"\n"
-  "  component: \"/player/player.script\"\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"sprite\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"2\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/player/player.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 19.0\n"
-  "    y: 17.0\n"
-  "  }\n"
-  "}\n"
-  "embedded_components {\n"
-  "  id: \"collisionobject\"\n"
-  "  type: \"collisionobject\"\n"
-  "  data: \"type: COLLISION_OBJECT_TYPE_KINEMATIC\\n"
-  "mass: 0.0\\n"
-  "friction: 0.1\\n"
-  "restitution: 0.5\\n"
-  "group: \\\"default\\\"\\n"
-  "mask: \\\"default\\\"\\n"
-  "embedded_collision_shape {\\n"
-  "  shapes {\\n"
-  "    shape_type: TYPE_SPHERE\\n"
-  "    position {\\n"
-  "      x: 20.0\\n"
-  "      y: 16.0\\n"
-  "    }\\n"
-  "    rotation {\\n"
-  "    }\\n"
-  "    index: 0\\n"
-  "    count: 1\\n"
-  "  }\\n"
-  "  data: 20.0\\n"
-  "}\\n"
-  "\"\n"
-  "}\n"
-  ""
-  position {
-    x: 40.0
-    y: 40.0
-    z: 0.2
-  }
 }

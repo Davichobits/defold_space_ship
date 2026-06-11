@@ -1,0 +1,4 @@
+images {
+  image: "/assets/Shoot/1.png"
+}
+extrude_borders: 2
