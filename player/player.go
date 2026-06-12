@@ -37,8 +37,8 @@ embedded_components {
   ""
 }
 embedded_components {
-  id: "bulletfactory"
-  type: "collectionfactory"
-  data: "prototype: \"\"\n"
+  id: "bullet1_factory"
+  type: "factory"
+  data: "prototype: \"/player/bullet1/bullet1.go\"\n"
   ""
 }
