@@ -29,13 +29,12 @@ function on_input(self, action_id, action)
 	elseif action_id == hash("right") then
 		self.speed = max_speed
 	elseif action_id == hash("key_space") and action.pressed then
-		print("shoot")
 		local player_position = go.get_position()
 		player_position.y = player_position.y + 10
 
 		local bullet_id = factory.create("#bullet1_factory", player_position)
 
-		local distance = 1000
+		local distance = 500
 		local speed = 800
 		local duration = distance/speed
 		local to = player_position.y + distance
