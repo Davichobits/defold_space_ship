@@ -31,19 +31,15 @@ instances {
     z: 0.04
   }
 }
-scale_along_z: 0
-embedded_instances {
-  id: "background"
-  data: "embedded_components {\n"
-  "  id: \"sprite\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"default_animation: \\\"1\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "textures {\\n"
-  "  sampler: \\\"texture_sampler\\\"\\n"
-  "  texture: \\\"/background/background.atlas\\\"\\n"
-  "}\\n"
-  "\"\n"
-  "}\n"
-  ""
+instances {
+  id: "background1"
+  prototype: "/background/background1.go"
 }
+instances {
+  id: "background2"
+  prototype: "/background/background2.go"
+  position {
+    y: 480.0
+  }
+}
+scale_along_z: 0
