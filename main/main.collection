@@ -42,4 +42,13 @@ instances {
     y: 480.0
   }
 }
+instances {
+  id: "camera"
+  prototype: "/main/camera.go"
+  position {
+    x: 320.0
+    y: 240.0
+    z: 100.0
+  }
+}
 scale_along_z: 0

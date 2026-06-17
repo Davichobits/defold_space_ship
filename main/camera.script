@@ -1,0 +1,9 @@
+function init(self)
+	print("CAMERA INIT")
+	msg.post("#camera", "acquire_camera_focus")
+
+	camera.set_orthographic_mode(
+	"#camera",
+	camera.ORTHO_MODE_AUTO_FIT
+)
+end
