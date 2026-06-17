@@ -1,4 +1,4 @@
-local speed = -10
+local constants = require("constants")
 function init(self)
 	-- Add initialization code here
 	-- Learn more: https://defold.com/manuals/script/
@@ -13,7 +13,7 @@ end
 
 function update(self, dt)
 	local position = go.get_position()
-	position.y = position.y + speed * dt
+	position.y = position.y + constants.BACKGROUND_SPEED * dt
 	if position.y <= -480 then
 		position.y = 479
 	end
