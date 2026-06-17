@@ -1,0 +1,22 @@
+image: "/assets/ansimuz/spritesheets/ship.png"
+tile_width: 16
+tile_height: 24
+collision_groups: "default"
+animations {
+  id: "Idle"
+  start_tile: 3
+  end_tile: 3
+}
+animations {
+  id: "left"
+  start_tile: 1
+  end_tile: 2
+  fps: 2
+}
+animations {
+  id: "right"
+  start_tile: 4
+  end_tile: 5
+  fps: 2
+}
+extrude_borders: 2

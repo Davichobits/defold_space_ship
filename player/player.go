@@ -5,13 +5,17 @@ components {
 embedded_components {
   id: "sprite"
   type: "sprite"
-  data: "default_animation: \"2\"\n"
+  data: "default_animation: \"Idle\"\n"
   "material: \"/builtins/materials/sprite.material\"\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/player/player.atlas\"\n"
+  "  texture: \"/player/player.tilesource\"\n"
   "}\n"
   ""
+  scale {
+    x: 2.0
+    y: 2.0
+  }
 }
 embedded_components {
   id: "collisionobject"
