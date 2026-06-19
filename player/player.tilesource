@@ -10,6 +10,18 @@ animations {
   fps: 20
 }
 animations {
+  id: "idle_left"
+  start_tile: 1
+  end_tile: 2
+  fps: 20
+}
+animations {
+  id: "idle_right"
+  start_tile: 9
+  end_tile: 10
+  fps: 20
+}
+animations {
   id: "left"
   start_tile: 1
   end_tile: 4
