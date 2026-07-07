@@ -1,123 +1,20 @@
-local fsm = require("player.fsm")
-
 local max_speed = 300
 local min_x = 40
 local max_x = 560
 
--- Estados de animación
-local ANIMATION_STATES = {
-	idle = {
-		animation = hash("idle"),
-		loop = true
-	},
-	turn_left = {
-		animation = hash("turn_left"),
-		loop = false
-	},
-	turn_left_idle = {
-		animation = hash("turn_left_idle"),
-		loop = true
-	},
-	turn_right = {
-		animation = hash("turn_right"),
-		loop = false
-	},
-	turn_right_idle = {
-		animation = hash("turn_right_idle"),
-		loop = true
-	}
-}
-
--- Transiciones permitidas entre estados
-local ANIMATION_TRANSITIONS = {
-	idle = { "turn_left", "turn_right" },
-	turn_left = { "idle", "turn_left_idle" },
-	turn_left_idle = { "turn_left", "idle" },
-	turn_right = { "idle", "turn_right_idle" },
-	turn_right_idle = { "turn_right", "idle" }
-}
-
 -- Mensajes para la FSM
 local ANIMATION_DONE = hash("animation_done")
 
--- Funciones auxiliares para la FSM
-local function get_animation_state_name(self)
-	return fsm.get_state_name(self.animation_fsm)
-end
-
-local function get_animation_state(self)
-	return fsm.get_state(self.animation_fsm)
-end
-
-local function refresh_visuals(self, previous_state_name)
-	local state = get_animation_state(self)
-	local current_state_name = get_animation_state_name(self)
-
-	if not state or not current_state_name then
-		return
-	end
-
-	sprite.play_flipbook("#sprite", state.animation)
-end
-
-local function enter_animation_state(self, next_state_name)
-	local previous_state_name = get_animation_state_name(self)
-
-	if not fsm.set_state(self.animation_fsm, next_state_name) then
-		return
-	end
-
-	refresh_visuals(self, previous_state_name)
-end
-
--- Función para avanzar en la FSM (como en el ejemplo)
-local function advance_animation_fsm(self, allow_from_finished_state)
-	local requested_state = self.trigger_state or self.target_state
-	local current_state = get_animation_state(self)
-
-	if not requested_state then
-		return
-	end
-
-	if not allow_from_finished_state and current_state and not current_state.loop then
-		return
-	end
-
-	if requested_state == get_animation_state_name(self) then
-		enter_animation_state(self, requested_state)
-		return
-	end
-
-	local path = fsm.find_path(self.animation_fsm, requested_state)
-
-	if not path then
-		return
-	end
-
-	for _, next_state_name in ipairs(path) do
-		enter_animation_state(self, next_state_name)
-
-		if not get_animation_state(self).loop then
-			return
-		end
-	end
-end
-
 -- Inicialización
 function init(self)
-	self.animation_fsm = fsm.new({
-		states = ANIMATION_STATES,
-		transitions = ANIMATION_TRANSITIONS,
-		initial_state = "idle"  -- Estado inicial corregido
-	})
 
 	self.target_state = "idle"
 	self.trigger_state = nil
 
 	msg.post(".", "acquire_input_focus")
 	self.speed = 0
-
-	enter_animation_state(self, self.target_state)
+	self.left_pressed = false
+	self.right_pressed = false
 end
 
 -- Actualización por frame
@@ -139,29 +36,24 @@ end
 
 -- Manejo de entrada
 function on_input(self, action_id, action)
+	print(
+	action_id,
+	action.pressed,
+	action.released,
+	action.repeated
+)
 	if action_id == hash("left") then
 		if action.pressed then
-			self.speed = -max_speed
-			-- Cambiar al estado turn_left al presionar left
-			self.target_state = "turn_left"
-			advance_animation_fsm(self)
+			self.left_pressed = true
 		elseif action.released then
-			self.speed = 0
-			-- Cambiar a turn_left_idle al soltar left
-			self.target_state = "turn_left_idle"
-			advance_animation_fsm(self)
+			self.left_pressed = false
 		end
+
 	elseif action_id == hash("right") then
 		if action.pressed then
-			self.speed = max_speed
-			-- Cambiar al estado turn_right al presionar right
-			self.target_state = "turn_right"
-			advance_animation_fsm(self)
+			self.right_pressed = true
 		elseif action.released then
-			self.speed = 0
-			-- Cambiar a turn_right_idle al soltar right
-			self.target_state = "turn_right_idle"
-			advance_animation_fsm(self)
+			self.right_pressed = false
 		end
 	elseif action_id == hash("key_space") and action.pressed then
 		local player_position = go.get_position()
@@ -177,12 +69,23 @@ function on_input(self, action_id, action)
 			go.delete(bullet_id)
 		end)
 	end
+
+	if self.left_pressed and not self.right_pressed then
+		self.speed = -max_speed
+
+	elseif self.right_pressed and not self.left_pressed then
+		self.speed = max_speed
+
+	else
+		self.speed = 0
+	end
 end
 
 -- Manejo de mensajes (para animaciones no loop)
 function on_message(self, message_id, message)
-	if message_id == ANIMATION_DONE then
-		-- Cuando una animación no loop termina, avanzar a la siguiente
-		advance_animation_fsm(self, true)
+
+	if message_id ~= ANIMATION_DONE then
+		return
 	end
+
 end
