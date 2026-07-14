@@ -1,6 +1,6 @@
 components {
   id: "background"
-  component: "/background/background1.script"
+  component: "/background/background.script"
 }
 embedded_components {
   id: "sprite"

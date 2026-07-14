@@ -1,0 +1,13 @@
+local constants = require("constants")
+
+function update(self, dt)
+	local position = go.get_position()
+	position.y = position.y + constants.BACKGROUND_SPEED * dt
+
+	-- Move the background back to the top when it goes out of view.
+	if position.y <= -constants.SCREEN_HEIGHT then
+		position.y = constants.SCREEN_HEIGHT - constants.BACKGROUND_SHIFT
+	end
+	
+	go.set_position(position)
+end
