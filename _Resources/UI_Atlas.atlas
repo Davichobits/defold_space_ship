@@ -1,0 +1,27 @@
+images {
+  image: "/_Assets/background.png"
+}
+images {
+  image: "/_Assets/button.png"
+}
+images {
+  image: "/_Assets/NineRect.png"
+}
+images {
+  image: "/_Assets/Ribbon.png"
+}
+animations {
+  id: "SoundOn"
+  images {
+    image: "/_Assets/On.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+}
+animations {
+  id: "SoundOff"
+  images {
+    image: "/_Assets/Off.png"
+  }
+  playback: PLAYBACK_LOOP_FORWARD
+}
+extrude_borders: 2
