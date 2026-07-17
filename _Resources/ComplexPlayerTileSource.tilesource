@@ -1,0 +1,65 @@
+image: "/_Assets/NewPlayerAnimations.png"
+tile_width: 96
+tile_height: 64
+animations {
+  id: "axe"
+  start_tile: 51
+  end_tile: 60
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+animations {
+  id: "end_fishing"
+  start_tile: 61
+  end_tile: 70
+  fps: 12
+}
+animations {
+  id: "idle"
+  start_tile: 71
+  end_tile: 78
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+animations {
+  id: "mining"
+  start_tile: 1
+  end_tile: 10
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+animations {
+  id: "run"
+  start_tile: 21
+  end_tile: 28
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+animations {
+  id: "start_fishing"
+  start_tile: 31
+  end_tile: 45
+  fps: 12
+}
+animations {
+  id: "waiting"
+  start_tile: 91
+  end_tile: 98
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+animations {
+  id: "walk"
+  start_tile: 11
+  end_tile: 18
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+animations {
+  id: "watering"
+  start_tile: 81
+  end_tile: 85
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 12
+}
+extrude_borders: 2

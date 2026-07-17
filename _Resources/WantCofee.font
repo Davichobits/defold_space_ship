@@ -1,0 +1,4 @@
+font: "/_Assets/Want Coffee.ttf"
+material: "/builtins/fonts/font.material"
+size: 64
+characters: " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
