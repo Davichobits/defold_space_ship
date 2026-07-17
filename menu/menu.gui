@@ -1,3 +1,4 @@
+script: "/_Scripts/MainMenu.gui_script"
 fonts {
   name: "WantCofee"
   font: "/_Resources/WantCofee.font"
@@ -35,7 +36,7 @@ nodes {
   }
   type: TYPE_BOX
   texture: "UI_Atlas/button"
-  id: "start_button"
+  id: "StartButton"
   inherit_alpha: true
 }
 nodes {
@@ -55,7 +56,7 @@ nodes {
   text: "Start"
   font: "WantCofee"
   id: "text"
-  parent: "start_button"
+  parent: "StartButton"
   inherit_alpha: true
 }
 nodes {
@@ -69,7 +70,7 @@ nodes {
   }
   type: TYPE_BOX
   texture: "UI_Atlas/button"
-  id: "exit_button"
+  id: "ExitButton"
   inherit_alpha: true
 }
 nodes {
@@ -89,7 +90,7 @@ nodes {
   text: "Exit"
   font: "WantCofee"
   id: "text1"
-  parent: "exit_button"
+  parent: "ExitButton"
   inherit_alpha: true
 }
 nodes {

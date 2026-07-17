@@ -1,0 +1,188 @@
+local GameManager = require("_Scripts.GameManager")
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	if GameManager.is_sound_on then
+		sound.play("/Music#sound", {delay = 1, gain = 0.1, pan = 0, speed = 1.0})
+	end
+	self.speed = 140
+	self.direction = vmath.vector3()
+	
+	self.is_in_water_area = false
+	self.is_in_tree_area = false
+	self.is_in_mine_area = false
+	self.is_in_fruit_area = false
+	
+	self.wait_for_animation_to_finish = false
+	self.is_doing_something = false
+	self.current_state = "idle"
+	self.previous_state = "idle"
+end
+
+local function manage_animations(self)
+	if self.previous_state == self.current_state then return end
+
+	self.previous_state = self.current_state
+	local state = self.current_state
+
+	if state == "walk" then sprite.play_flipbook("#sprite", "walk")
+	elseif state == "run" then sprite.play_flipbook("#sprite", "run")
+	elseif state == "axe" then sprite.play_flipbook("#sprite", "axe")
+	elseif state == "start_fishing" then sprite.play_flipbook("#sprite", "start_fishing")
+	elseif state == "end_fishing" then sprite.play_flipbook("#sprite", "end_fishing")
+	elseif state == "idle" then sprite.play_flipbook("#sprite", "idle")
+	elseif state == "watering" then sprite.play_flipbook("#sprite", "watering")
+	elseif state == "mining" then sprite.play_flipbook("#sprite", "mining")
+	elseif state == "waiting" then sprite.play_flipbook("#sprite", "waiting")
+	end
+end
+
+function update(self, dt)
+	if vmath.length_sqr(self.direction) > 1 then
+		self.direction = vmath.normalize(self.direction)
+	end
+
+	if not self.wait_for_animation_to_finish then
+		local pos = go.get_position()
+		local speed_mult = 1
+		if self.current_state == "run" then speed_mult = 1.5 end
+		pos = pos + self.direction * self.speed * dt * speed_mult
+		go.set_position(pos)
+	end
+	
+	if vmath.length(self.direction) < 0.5 and not self.is_doing_something and self.current_state ~= "idle" then
+		self.current_state = "idle"
+		manage_animations(self)
+	end
+	
+	self.direction = vmath.vector3()
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") then
+		if message.other_group == hash("tree") then
+			if message.enter then 
+				self.is_in_tree_area = true
+			else 
+				self.is_in_tree_area = false 
+			end
+		elseif message.other_group == hash("mine") then
+			if message.enter then 
+				self.is_in_mine_area = true
+			else 
+				self.is_in_mine_area = false 
+			end
+		elseif message.other_group == hash("fruit") then
+			if message.enter then 
+				self.is_in_fruit_area = true
+			else 
+				self.is_in_fruit_area = false 
+			end
+		elseif message.other_group == hash("water") then
+			if message.enter then 
+				self.is_in_water_area = true
+			else 
+				self.is_in_water_area = false 
+			end
+		end
+	end	
+	
+	if message_id == hash("animation_done") then
+		self.wait_for_animation_to_finish = false
+		if self.current_state == "start_fishing" then
+			self.current_state = "waiting"
+		else 
+			self.current_state = "idle"
+			self.is_doing_something = false
+		end
+		
+		manage_animations(self)
+	end
+end
+
+function on_input(self, action_id, action)
+	if self.wait_for_animation_to_finish then return end
+	
+	if action_id == hash("Left") then
+		self.direction.x = -1
+	elseif action_id == hash("Right") then
+		self.direction.x = 1
+	elseif action_id == hash("Up") then
+		self.direction.y = 1
+	elseif action_id == hash("Down") then
+		self.direction.y = -1
+	end
+	
+	local state = self.current_state
+	if (state == "mining" and not self.is_in_mine_area) or 
+	(state == "axe" and not self.is_in_tree_area) or 
+	(state == "watering" and not self.is_in_fruit_area) or 
+	((state == "start_fishing" or state == "waiting")and not self.is_in_water_area) then
+		self.current_state = "idle"
+		self.is_doing_something = false
+	end
+
+	if  self.current_state ~= "waiting" then
+		if self.direction.x > 0 then sprite.set_hflip("#sprite", false)
+		elseif self.direction.x < 0 then sprite.set_hflip("#sprite", true) end
+	end
+
+	if action_id == hash("Interact") and action.released then
+		if self.current_state == "waiting" then
+			self.current_state = "end_fishing"
+			self.wait_for_animation_to_finish = true
+		elseif state == "mining" or state == "axe" or state == "watering" or state == "waiting" then
+				self.current_state = "idle"
+				self.is_doing_something = false
+		elseif self.is_in_water_area then
+			if self.current_state ~= "start_fishing" then
+				self.current_state = "start_fishing"
+				self.wait_for_animation_to_finish = true
+				self.is_doing_something = true
+			end
+		elseif self.is_in_fruit_area then
+			if self.current_state ~= "watering" then
+				self.current_state = "watering"
+				self.is_doing_something = true
+			end
+		elseif self.is_in_mine_area then
+			if self.current_state ~= "mining" then
+				self.current_state = "mining"
+				self.is_doing_something = true
+			end
+		elseif self.is_in_tree_area then
+			if self.current_state ~= "axe" then
+				self.current_state = "axe"
+				self.is_doing_something = true
+			end
+		end
+	elseif vmath.length(self.direction) > 0.5 then
+		if self.current_state == "waiting" then
+			self.current_state = "end_fishing"
+			self.wait_for_animation_to_finish = true
+		elseif not self.is_doing_something then
+			if action_id == hash("Run") and action.pressed then
+				if self.current_state ~= "run" then
+					self.current_state = "run"
+				end
+			elseif self.current_state ~= "run" or (action_id == hash("Run") and action.released) then
+				if self.current_state ~= "walk" then
+					self.current_state = "walk"
+				end
+			end
+		end
+	elseif not self.is_doing_something then
+		self.current_state = "idle"
+	end
+	manage_animations(self)
+end
+
+
+
+
+
+
+
+
+
+
