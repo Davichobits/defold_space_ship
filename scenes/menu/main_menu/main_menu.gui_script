@@ -1,4 +1,4 @@
-local GameManager = require("_Scripts.GameManager")
+local GameManager = require("scenes.game_manager")
 
 local function update_sound_icon(is_on)
 	-- local texture = is_on and "SoundOn" or "SoundOff"
@@ -11,7 +11,10 @@ function init(self)
 	-- self.sound_icon = gui.get_node("Image")
 
 	self.start_button = gui.get_node("StartButton")
+	self.credits_button = gui.get_node("CreditsButton")
+	self.controls_button = gui.get_node("ControlsButton")
 	self.exit_button = gui.get_node("ExitButton")
+	
 
 	msg.post(".", "acquire_input_focus")
 
@@ -29,12 +32,19 @@ function on_input(self, action_id, action)
 		-- end
 
 		if gui.pick_node(self.start_button, action.x, action.y) then
-			print("Start button clicked!")
 			msg.post("main:/SceneParent", "change_scene", { scene = "level" })
 		end
 
+		if gui.pick_node(self.controls_button, action.x, action.y) then
+			print("Controls button clicked!")
+			msg.post("main:/SceneParent", "change_scene", { scene = "controls" })
+		end
+
+		if gui.pick_node(self.credits_button, action.x, action.y) then
+			print("Credits button clicked!")
+		end
+
 		if gui.pick_node(self.exit_button, action.x, action.y) then
-			print("Exit button clicked!")
 			os.exit()
 		end
 	end
