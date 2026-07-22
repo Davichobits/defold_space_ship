@@ -26,7 +26,7 @@ instances {
   id: "player"
   prototype: "/player/player.go"
   position {
-    x: 40.0
+    x: 584.0
     y: 40.0
     z: 0.04
   }
@@ -50,5 +50,17 @@ instances {
     y: 240.0
     z: 100.0
   }
+}
+instances {
+  id: "character"
+  prototype: "/player/character/character.go"
+  position {
+    x: 30.0
+    y: 36.0
+  }
+}
+instances {
+  id: "platform"
+  prototype: "/platform/platform.go"
 }
 scale_along_z: 0

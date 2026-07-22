@@ -1,0 +1,10 @@
+image: "/assets/character/PlayerRun.png"
+tile_width: 96
+tile_height: 96
+collision_groups: "default"
+animations {
+  id: "run"
+  start_tile: 1
+  end_tile: 1
+}
+extrude_borders: 2

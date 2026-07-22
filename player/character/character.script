@@ -1,0 +1,78 @@
+local MAX_SPEED = 250
+local JUMP_FORCE = 550
+local GRAVITY = -1200
+local GROUND_Y = 0
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+
+	self.velocity = vmath.vector3()
+	self.on_ground = true
+	self.left_pressed = false
+	self.right_pressed = false
+end
+
+function update(self, dt)
+
+	-- DIRECTION
+	local direction = vmath.vector3()
+	
+	if self.left_pressed then
+		direction.x = direction.x - 1
+	end
+
+	if self.right_pressed then
+		direction.x = direction.x + 1
+	end
+
+	-- GRAVITY
+	if not self.on_ground then
+		self.velocity.y = self.velocity.y + GRAVITY * dt
+	end
+
+	-- POSITION
+	local position = go.get_position()
+	local movement = direction * MAX_SPEED * dt
+	position = position + movement
+
+	-- IS ON GROUND ?
+	if position.y <= GROUND_Y then
+		position.y = GROUND_Y
+		self.velocity.y = 0
+		self.on_ground = true
+	end
+
+	go.set_position(position)
+end
+
+function on_input(self, action_id, action)
+
+	-- HORIZONTAL MOVEMENT
+	if action_id == hash("left") then
+		if action.pressed then
+			-- self.velocity.x = -SPEED
+			self.left_pressed = true
+		elseif action.released then
+			-- self.velocity.x = 0
+			self.left_pressed = false
+		end
+	end
+
+	if action_id == hash("right") then
+		if action.pressed then
+			self.right_pressed = true
+			-- self.velocity.x = SPEED
+		elseif action.released then
+			-- self.velocity.x = 0
+			self.right_pressed = false
+		end
+	end
+
+	-- JUMP
+	if action_id == hash("up") and action.pressed then
+		if self.on_ground then
+			self.velocity.y = JUMP_FORCE
+			self.on_ground = false
+		end
+	end
+end
