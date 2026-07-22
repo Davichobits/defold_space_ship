@@ -45,7 +45,15 @@ function update(self, dt)
 	end
 
 	-- ANIMATIONS
-	utils.play_animation(self, "idle")
+	if self.left_pressed then
+		sprite.set_hflip("#sprite", true)
+		utils.play_animation(self, "run")
+	elseif self.right_pressed then
+		sprite.set_hflip("#sprite", false)
+		utils.play_animation(self, "run")
+	else
+		utils.play_animation(self, "idle")
+	end
 
 	go.set_position(position)
 end
