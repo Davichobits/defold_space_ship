@@ -1,10 +1,12 @@
-image: "/assets/character/PlayerRun.png"
+image: "/assets/character/PlayerIdle.png"
 tile_width: 96
 tile_height: 96
 collision_groups: "default"
 animations {
-  id: "run"
+  id: "idle"
   start_tile: 1
-  end_tile: 1
+  end_tile: 4
+  playback: PLAYBACK_LOOP_FORWARD
+  fps: 10
 }
 extrude_borders: 2

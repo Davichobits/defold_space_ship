@@ -18,7 +18,6 @@ local function switch_to_scene(new_scene)
 end
 
 function init(self)
-	print("Loading menu...")
 	msg.post(".", "acquire_input_focus")
 	msg.post("#menu", "load")
 end

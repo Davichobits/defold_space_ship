@@ -5,7 +5,7 @@ embedded_components {
   "material: \"/builtins/materials/sprite.material\"\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/player/bullet1/bullet1.atlas\"\n"
+  "  texture: \"/player/rocket/bullet1/bullet1.atlas\"\n"
   "}\n"
   ""
 }

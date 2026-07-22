@@ -23,8 +23,8 @@ instances {
   }
 }
 instances {
-  id: "player"
-  prototype: "/player/player.go"
+  id: "rocket"
+  prototype: "/player/rocket/player.go"
   position {
     x: 584.0
     y: 40.0
@@ -57,6 +57,7 @@ instances {
   position {
     x: 30.0
     y: 36.0
+    z: 0.04
   }
 }
 instances {

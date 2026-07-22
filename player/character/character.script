@@ -1,3 +1,5 @@
+local utils = require("utils.animation")
+
 local MAX_SPEED = 250
 local JUMP_FORCE = 550
 local GRAVITY = -1200
@@ -42,13 +44,16 @@ function update(self, dt)
 		self.on_ground = true
 	end
 
+	-- ANIMATIONS
+	utils.play_animation(self, "idle")
+
 	go.set_position(position)
 end
 
 function on_input(self, action_id, action)
 
 	-- HORIZONTAL MOVEMENT
-	if action_id == hash("left") then
+	if action_id == hash("key_left") then
 		if action.pressed then
 			-- self.velocity.x = -SPEED
 			self.left_pressed = true
@@ -58,7 +63,7 @@ function on_input(self, action_id, action)
 		end
 	end
 
-	if action_id == hash("right") then
+	if action_id == hash("key_right") then
 		if action.pressed then
 			self.right_pressed = true
 			-- self.velocity.x = SPEED
@@ -69,7 +74,7 @@ function on_input(self, action_id, action)
 	end
 
 	-- JUMP
-	if action_id == hash("up") and action.pressed then
+	if action_id == hash("key_space") and action.pressed then
 		if self.on_ground then
 			self.velocity.y = JUMP_FORCE
 			self.on_ground = false

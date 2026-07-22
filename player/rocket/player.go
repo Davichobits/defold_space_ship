@@ -1,6 +1,6 @@
 components {
   id: "player"
-  component: "/player/player.script"
+  component: "/player/rocket/rocket.script"
 }
 embedded_components {
   id: "sprite"
@@ -9,7 +9,7 @@ embedded_components {
   "material: \"/builtins/materials/sprite.material\"\n"
   "textures {\n"
   "  sampler: \"texture_sampler\"\n"
-  "  texture: \"/player/player.tilesource\"\n"
+  "  texture: \"/player/rocket/rocket.tilesource\"\n"
   "}\n"
   ""
   scale {
@@ -43,6 +43,6 @@ embedded_components {
 embedded_components {
   id: "bullet1_factory"
   type: "factory"
-  data: "prototype: \"/player/bullet1/bullet1.go\"\n"
+  data: "prototype: \"/player/rocket/bullet1/bullet1.go\"\n"
   ""
 }

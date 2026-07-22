@@ -68,7 +68,7 @@ end
 
 function on_input(self, action_id, action)
 	
-	if action_id == hash("left") then
+	if action_id == hash("key_left") then
 		
 		if action.pressed then
 			self.left_pressed = true
@@ -76,7 +76,7 @@ function on_input(self, action_id, action)
 			self.left_pressed = false
 		end
 		
-	elseif action_id == hash("right") then
+	elseif action_id == hash("key_right") then
 		
 		if action.pressed then
 			self.right_pressed = true
@@ -84,7 +84,7 @@ function on_input(self, action_id, action)
 			self.right_pressed = false
 		end
 		
-	elseif action_id == hash("up") then
+	elseif action_id == hash("key_up") then
 
 		if action.pressed then
 			self.up_pressed = true
@@ -92,7 +92,7 @@ function on_input(self, action_id, action)
 			self.up_pressed = false
 		end
 
-	elseif action_id == hash("down") then
+	elseif action_id == hash("key_down") then
 
 		if action.pressed then
 			self.down_pressed = true
