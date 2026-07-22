@@ -42,6 +42,11 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
+
+	if action_id == hash("key_scape") then
+		sys.exit(0)
+	end
+	
 	if action_id == hash("Tab") and action.released then
 		if GameManager.current_level == "level" then
 			switch_to_scene("menu")
