@@ -9,7 +9,7 @@ function init(self)
 	msg.post(".", "acquire_input_focus")
 
 	self.velocity = vmath.vector3()
-	self.on_ground = true
+	self.on_ground = false
 	self.left_pressed = false
 	self.right_pressed = false
 end
@@ -35,6 +35,7 @@ function update(self, dt)
 	-- POSITION
 	local position = go.get_position()
 	local movement = direction * MAX_SPEED * dt
+	movement.y = self.velocity.y * dt
 	position = position + movement
 
 	-- IS ON GROUND ?
