@@ -1,0 +1,7 @@
+function on_message(self, message_id, message, sender)
+	if message_id == hash("collision_response") then  -- <4>
+		if message.own_group == hash("danger") then  -- <5>
+			print("Collision")
+		end
+	end
+end

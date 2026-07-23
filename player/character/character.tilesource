@@ -3,6 +3,11 @@ tile_width: 96
 tile_height: 96
 collision_groups: "default"
 animations {
+  id: "fall"
+  start_tile: 19
+  end_tile: 1
+}
+animations {
   id: "idle"
   start_tile: 1
   end_tile: 4
